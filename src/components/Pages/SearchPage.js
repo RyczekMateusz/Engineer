@@ -1,9 +1,10 @@
 import React from 'react';
+import List from '../List'
 
 const SearchPage = () => {
   return (
     <div>
-      Znajdź
+      <List />
     </div>
   );
 }
