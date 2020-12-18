@@ -20,16 +20,12 @@ const AddApartment = ({ offersName,
   const [rentInput, setRentInput] = useState(0);
   const [mediaInRentCheckbox, setMediaInRentCheckbox] = useState('false');
 
-  const handleOfferNameChange = (event) => setOffersNameInput(event.target.value);
-  const handleCityChange = (event) => setCityNameInput(event.target.value);
-  const handleDistrictChange = (event) => setDistrictNameInput(event.target.value);
-  const handleFullAddresChange = (event) => setFullAddresInput(event.target.value);
-  const handleRentChange = (event) => setRentInput(event.target.value);
+
   const handleMediaChange = (event) => setMediaInRentCheckbox(event.target.checked);
+  const handleEvent = (event) => { return (fnHandler) => fnHandler(event.target.value) }
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    console.log(`Dodaje: ${offersNameInput}, ${cityNameInput}, ${districtNameInput}, ${fullAddresInput}, ${rentInput}, ${mediaInRentCheckbox}`);
     const newOffer = {
       id,
       offersName: offersNameInput,
@@ -39,7 +35,9 @@ const AddApartment = ({ offersName,
       rent: Number(rentInput),
       mediaInRent: mediaInRentCheckbox,
     };
+
     dispatch(addOffer(newOffer));
+
     setOffersNameInput('');
     setCityNameInput('');
     setDistrictNameInput('');
@@ -51,15 +49,15 @@ const AddApartment = ({ offersName,
   return (
     <div>
       <form onSubmit={handleOnSubmit}>
-        <label>Nazwa oferty: <input type="text" onChange={handleOfferNameChange} value={offersNameInput} /></label> <br />
+        <label>Nazwa oferty: <input type="text" onChange={(event => handleEvent(event)(setOffersNameInput))} value={offersNameInput} /></label> <br />
 
-        <label>Miasto: <input type="text" onChange={handleCityChange} value={cityNameInput} /></label> <br />
+        <label>Miasto: <input type="text" onChange={(event => handleEvent(event)(setCityNameInput))} value={cityNameInput} /></label> <br />
 
-        <label>Dzielnica: <input type="text" onChange={handleDistrictChange} value={districtNameInput} /></label> <br />
+        <label>Dzielnica: <input type="text" onChange={(event => handleEvent(event)(setDistrictNameInput))} value={districtNameInput} /></label> <br />
 
-        <label>Pełny adres: <input type="text" onChange={handleFullAddresChange} value={fullAddresInput} /></label> <br />
+        <label>Pełny adres: <input type="text" onChange={(event => handleEvent(event)(setFullAddresInput))} value={fullAddresInput} /></label> <br />
 
-        <label>Czynsz: <input type="number" onChange={handleRentChange} value={rentInput} /></label> <br />
+        <label>Czynsz: <input type="number" onChange={(event => handleEvent(event)(setRentInput))} value={rentInput} /></label> <br />
 
         <label>Media w cenie: <input type="checkbox" onChange={handleMediaChange} value={mediaInRentCheckbox} /></label> <br />
 
